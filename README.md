@@ -10,6 +10,8 @@
 
 
 <h1>INTRODUCTION TO SKIP LIST</h1>
-<p>Skip List is a probabilistic data structure that provides an alternative to balanced trees for insertion, search and deletion of elements.It is essentially an ordered linked list that allows for efficient searching with different levels of linked lists, each acting as an express lane to navigate through the data quickly.</p>
-<br>
-<p>It combines the advantages of Arrays and linked lists.</p>
+<p>Skip List is a probabilistic data structure that provides an alternative to balanced trees for insertion, search and deletion of elements.It is essentially an ordered linked list that allows for efficient searching with different levels of linked lists, each acting as an express lane to navigate through the data quickly.
+It combines the advantages of Arrays and linked lists.</p>
+
+![OIP](https://github.com/CybersecurityDSA/skip_list/assets/167642797/eea2b99c-852d-4b23-a507-d89ed211aeed)
+
