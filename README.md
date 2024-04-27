@@ -34,3 +34,5 @@ It combines the advantages of Arrays and linked lists.</p>
 
 <h3>Deletion Analysis -</h3>
 <p>For deletion also the average time complexity for deleting an element from a skip list is O(log n) because, it's process involves searching for the element and then removing it from all the levels of the Skip List. Worst case analysis is O(n) like all other operations.</p>
+
+![image](https://github.com/CybersecurityDSA/skip_list/assets/167642797/6dbc61f7-7699-4474-971f-5312986063ad)
