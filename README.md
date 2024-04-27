@@ -24,3 +24,13 @@ It combines the advantages of Arrays and linked lists.</p>
 
 <p><br>Skip Lists have some important applications in various areas, such as distributed systems, databases, sorting algorithms
   and data compression algorithms.</p>
+
+  <h2>Time complexity analysis of Skip List: </h2>
+<h3>Insertion Analysis -</h3>
+<p>Average case time complexity for insertion is O(log n) because insertion process involves traversing the levels of the skip list to find the correct position for the new element. Where worst case analysis, when all the elements are in base level is O(n).</p>
+
+<h3>Search Analysis -</h3>
+<p>It is also similar to the Insertion analysis where the average case analysis is O(logn) as because ,on average, the no.of levels during the search operation is proportional to log n and Worst case analysis is O(n).</p>
+
+<h3>Deletion Analysis -</h3>
+<p>For deletion also the average time complexity for deleting an element from a skip list is O(log n) because, it's process involves searching for the element and then removing it from all the levels of the Skip List. Worst case analysis is O(n) like all other operations.</p>
