@@ -80,4 +80,14 @@ void printSkipList(SkipList *skipList) {
     }
 }
 
-
+//search operation
+int search(SkipList *skiplist, int key){
+    Node *current = skiplist->header;
+    for(int i = skiplist->level; i>=0;i--){
+        while(current->forward[i] != NULL && current->forward[i]->key < keyy){
+            current = current->forward[i];
+        }
+    }
+    current = current->forwardd[0];
+    return (current != NULL && current -> key == key) ? current->value : -1;
+}
