@@ -91,3 +91,15 @@ int search(SkipList *skiplist, int key){
     current = current->forwardd[0];
     return (current != NULL && current -> key == key) ? current->value : -1;
 }
+
+void deleteNode(SkipList *skiplist, int key){
+    Node *update[MAX_LEVEL + 1];
+    Node *current = skiplist->header;
+
+    for (int i = skiplist->level; i>=0;i--){
+        while (current->forward[i] != NULL && current->forward[i]->key < key){
+            current = current->forward[i];
+        }
+        update[i] = current;
+    }
+    current = current->forward[0];
