@@ -81,9 +81,9 @@ void printSkipList(SkipList *skipList) {
 }
 
 //search operation
-int search(SkipList *skiplist, int key){
-    Node *current = skiplist->header;
-    for(int i = skiplist->level; i>=0;i--){
+int search(SkipList *skipList, int key){
+    Node *current = skipList->header;
+    for(int i = skipList->level; i>=0;i--){
         while(current->forward[i] != NULL && current->forward[i]->key < keyy){
             current = current->forward[i];
         }
@@ -92,14 +92,25 @@ int search(SkipList *skiplist, int key){
     return (current != NULL && current -> key == key) ? current->value : -1;
 }
 
-void deleteNode(SkipList *skiplist, int key){
+void deleteNode(SkipList *skipList, int key){
     Node *update[MAX_LEVEL + 1];
-    Node *current = skiplist->header;
+    Node *current = skipList->header;
 
-    for (int i = skiplist->level; i>=0;i--){
+    for (int i = skipList->level; i>=0;i--){
         while (current->forward[i] != NULL && current->forward[i]->key < key){
             current = current->forward[i];
         }
         update[i] = current;
     }
     current = current->forward[0];
+
+    if (current == NULL || current->key != key){
+        return;
+    }
+
+    for (int i=0;i<=skipList->level;i++){
+        if (update[i]->forward[i] != current){
+            break;
+        }
+        update[i]->forward[i] = current->forward[i];
+    }
