@@ -114,3 +114,10 @@ void deleteNode(SkipList *skipList, int key){
         }
         update[i]->forward[i] = current->forward[i];
     }
+
+    while(skipList->level > 0 && skipList->header->forward[skipList->level] == NULL){
+        skipList->level--;
+    }
+
+    free(current);
+}
