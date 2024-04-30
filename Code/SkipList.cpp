@@ -30,12 +30,12 @@ class SkipList{
     float P;
     int level;
     SkipNode *header;
-public;
+public:
     SkipList(int max_lvl,float prob){
         MAX_LEVEL = max_lvl;
         P = prob;
         level = 0;
-        heder = new SkipNode(INT_MIN,MAX_LEVEL);
+        header = new SkipNode(INT_MIN,MAX_LEVEL);
     }
 
     ~SkipList(){
@@ -44,12 +44,12 @@ public;
 
     int randomLevel(){
         float r = (float)rand() / RAND_MAX;
-        itn lvl = 0;
-        while(r<P && lvl < MAX_LEVEL){
+        int lvl = 0;
+        while(r<P && level < MAX_LEVEL){
             lvl++;
             r = (float)rand() / RAND_MAX;
         }
-        return lvl;
+        return level;
     }
 
     void insertElement(int data) {
@@ -136,5 +136,52 @@ void deleteElement(int data) {
         }
     }
 };
+
+int main() {
+    srand((unsigned)time(0));
+    SkipList skipList(3, 0.5);
+
+    int choice, element;
+    do {
+        cout << "\n\n1. Insert Element";
+        cout << "\n2. Delete Element";
+        cout << "\n3. Search Element";
+        cout << "\n4. Display Skip List";
+        cout << "\n5. Exit";
+        cout << "\nEnter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter the element to be inserted: ";
+                cin >> element;
+                skipList.insertElement(element);
+                break;
+            case 2 :
+                cout << "Enter the element to be deleted: ";
+                cin >> element;
+                skipList.deleteElement(element);
+                break;
+            case 3 :
+                cout << "Enter the element to be searched: ";
+                cin >> element;
+                if (skipList.searchElement(element))
+                    cout << "Element found." << endl;
+                else 
+                    cout << "Element not found." << endl;
+                break;
+            case 4 :
+                skipList.displayList();
+                break;
+            case 5 :
+                cout << "Exiting....";
+                break;
+            default:
+                cout << "Invalid choice!";
+        }
+    } while (choice !=5);
+
+    return 0;
+}
 
 
