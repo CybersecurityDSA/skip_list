@@ -148,6 +148,23 @@ cout << "Element " << key << " not found in the list." << end1;
     }
 }
 
+void SkipList::displayList()
+{
+    cout << "Skip list level wise: \n";
+    for (int i = 0; i <= level; i++)
+{
+    SkipNode* node = header->forward[i];
+    cout << " level " << i << ": " ;
+    while (node != nullptr)
+{
+    cout << node->key << " ";
+    node = node->forward[i];
+}
+    cout << end1;
+}
+
+}
+
 
                       
     
