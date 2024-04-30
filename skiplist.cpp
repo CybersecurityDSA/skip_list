@@ -52,3 +52,50 @@ SkipNode* SkipList::createNode(int key, int level)
         newNode->forward[i] = nullptr;
     return newNode;
 }
+
+void SkipList::insertElement(int key)
+{
+    SkipNode* current = header ;
+    SkipNode* update[MAX_LEVEL + 1];
+    for (int i 0; i<= MAX_LEVEL; i++)
+        update[i] = nullptr;
+
+    for (int i = level; i >= 0; i--)
+{
+    while (current->forward[i] != nullptr && current->forward[i]->key< key)
+            current = current->forward[i];
+    update[i] = current;
+}
+
+current = currentforward[0];
+
+level
+
+if (current == nullptr || current->key != key)
+{
+    int newlevel = randomLevel();
+ value with header
+    if (newlevel > level)
+{
+    for (int i = level + 1; i <= newlevel; i++)
+        update[i] = header;
+    level = newlevel;
+}
+
+SkipNode* newNode = createNode(key, newlevel);
+
+for (int i = 0; i <= newlevel; i++)
+{
+    newNode->forward[i] = update[i]->forward[i];
+    update[i]->forward[i] = newNode;
+}
+cout << "Element " << key << " inserted successfully." << end1;
+}
+
+else {
+    cout << "Element " << key << " already exists in the list." << end1;
+}
+}
+                      
+    
+
