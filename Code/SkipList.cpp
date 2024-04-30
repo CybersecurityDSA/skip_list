@@ -84,3 +84,12 @@ public;
         }
     }
 };
+bool searchElement(int data) {
+    SkipNode *current = header;
+    for (int i = level; i >=0; i--) {
+        while (current->forward[i] && current->forward[i]->data < data)
+            current = current->forward[i];
+    }
+    current = current->forward[0];
+    return current != nullptr && current->data == data;
+}
