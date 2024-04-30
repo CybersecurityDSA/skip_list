@@ -112,6 +112,43 @@ bool SkpList::searchElement(int key)
     return false;
 }
 
+void SkipList::deleteElement(int key)
+{
+    SkipNode* current = header;
+    SkipNode* update[MAX_LEVEL + 1];
+    for (int i = 0; i <= MAXLEVEL; i++)
+        update[i] = nullptr;
+
+    for(int i = level; i>= o; i--)
+{
+    while (current->forward[i] != nullptr && current->forward[i]->key < key)
+            current = current->forward[i];
+    update[i] = current;
+}
+
+ current = current->forward[0];
+
+if (current != nullptr && current->key == key)
+{
+    for (int i = 0; i <= level; i++)
+{
+    if (update[i]->forward[i] != current)
+        break;
+    update[i]->forward[i] = current->forward[i];
+}
+
+    while (level > 0 && header->forward[level] == nullptr)
+        level--;
+
+    delete current;
+    cout << "Element " << key << " deleted successfully." << end1;
+}
+    else {
+cout << "Element " << key << " not found in the list." << end1;
+    }
+}
+
+
                       
     
 
