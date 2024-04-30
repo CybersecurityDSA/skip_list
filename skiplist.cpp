@@ -39,7 +39,7 @@ SkipList::SkipList()
 int SkipList::randomLevel()
 {
     int lvl = 0;
-    while (rand() % 2 && lvl <bMAX_LEVEL)
+    while (rand() % 2 && lvl <MAX_LEVEL)
         lvl++;
     return lvl;
 }
@@ -49,7 +49,7 @@ SkipNode* SkipList::createNode(int key, int level)
     SkipNode* newNode = new SkipNode;
     newNode->key = key;
     for (int i = 0; i<= level; i++)
-        newNode->forward[i] = nullptr;
+        newNode->forword[i] = nullptr;
     return newNode;
 }
 
@@ -62,8 +62,8 @@ void SkipList::insertElement(int key)
 
     for (int i = level; i >= 0; i--)
 {
-    while (current->forward[i] != nullptr && current->forward[i]->key< key)
-            current = current->forward[i];
+    while (current->forword[i] != nullptr && current->forword[i]->key< key)
+            current = current->forword[i];
     update[i] = current;
 }
 
@@ -86,8 +86,8 @@ SkipNode* newNode = createNode(key, newlevel);
 
 for (int i = 0; i <= newlevel; i++)
 {
-    newNode->forward[i] = update[i]->forward[i];
-    update[i]->forward[i] = newNode;
+    newNode->forword[i] = update[i]->forword[i];
+    update[i]->forword[i] = newNode;
 }
 cout << "Element " << key << " inserted successfully." << end1;
 }
@@ -102,10 +102,10 @@ bool SkpList::searchElement(int key)
     SkipNode* current = header;
     for (int i = level; i >= 0; i--)
 {
-    while (current->forward[i] != nullptr && current->forward[i]->key < key)
-        current = current->forward[i];
+    while (current->forword[i] != nullptr && current->forword[i]->key < key)
+        current = current->forword[i];
 }
-    current = current->forward[0];
+    current = current->forword[0];
 
     if (current != nullptr && current->key == key)
         return true;
@@ -121,23 +121,23 @@ void SkipList::deleteElement(int key)
 
     for(int i = level; i>= o; i--)
 {
-    while (current->forward[i] != nullptr && current->forward[i]->key < key)
-            current = current->forward[i];
+    while (current->forword[i] != nullptr && current->forword[i]->key < key)
+            current = current->forword[i];
     update[i] = current;
 }
 
- current = current->forward[0];
+ current = current->forword[0];
 
 if (current != nullptr && current->key == key)
 {
     for (int i = 0; i <= level; i++)
 {
-    if (update[i]->forward[i] != current)
+    if (update[i]->forword[i] != current)
         break;
-    update[i]->forward[i] = current->forward[i];
+    update[i]->forword[i] = current->forword[i];
 }
 
-    while (level > 0 && header->forward[level] == nullptr)
+    while (level > 0 && header->forword[level] == nullptr)
         level--;
 
     delete current;
@@ -153,18 +153,68 @@ void SkipList::displayList()
     cout << "Skip list level wise: \n";
     for (int i = 0; i <= level; i++)
 {
-    SkipNode* node = header->forward[i];
+    SkipNode* node = header->forword[i];
     cout << " level " << i << ": " ;
     while (node != nullptr)
 {
     cout << node->key << " ";
-    node = node->forward[i];
+    node = node->forword[i];
 }
     cout << end1;
 }
 
 }
 
+int main() 
+ {
+    srand((unsigned)time(nullptr));
+
+    SkipList skipList;
+
+    int choice, key;
+    while (true)
+{
+    cout << "\nSkip List Operations:" << end1;
+    cout << "1. Insert Element" << end1;
+    cout << "2. Search Element" << end1;
+    cout << "3. Delete Element" << end1;
+    cout << "4. Display List" << end1;
+    cout << "5. Exit" << end1;
+    cin >> choice;
+
+    switch (choice)
+{
+case 1:
+    cout << "Enter element to insert: ";
+    cin >> key;
+    skipList.insertElement(key);
+    break;
+case 2:
+    cout << "Enter element to search: ";
+    cin >> key;
+    if(skipList.searchElement((key))
+        cout << "Elememt " << Key << " is in the list." << end1;        
+    else
+        cout << "Element " << key << " is not in the list." << end1;
+    break;
+case 3:
+    cout << "Enter element to delete: ";
+    cin >> key;
+    skipList.deleteElement(key);
+    break;
+case 4:
+    skipList.displayList();
+    break;
+case 5:
+    cout << "Exirting..." << end1;
+    exit(0);
+default:
+    cout << " Invalid choice ! Pleace try again." << end1;
+}
+}
+
+return;
+ }
 
                       
     
