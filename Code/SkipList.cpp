@@ -122,3 +122,19 @@ void deleteElement(int data) {
                 level--;
         }
     }
+
+    void displayList() {
+        cout << "Skip List: " << endl;
+        for (int i = 0; i <= level; i++) {
+            SkipNode *node = header->forward[i];
+            cout << "Level " << i << ": ";
+            while (node != nullptr) {
+                cout << node->data << " ";
+                node = node->forward[i];
+            }
+            cout << endl;
+        }
+    }
+};
+
+
