@@ -51,4 +51,36 @@ public;
         }
         return lvl;
     }
-}
+
+    void insertElement(int data) {
+        SkipNode *current = header;
+        SkipNode *update[MAX_LEVEL+1];
+        for (int i=0;i<=MAX_LEVEL;i++){
+            update[i] = nullptr;
+        }
+
+        for(int i=level;i>=0;i--){
+            while(current->forward[i] != nullptr && current->forward[i]->data < data)
+                current = current->forward[i];
+            update[i] = current;
+
+        current = current->forward[0];
+
+        if(current == nullptr || current->data != data) {
+            int newLevel = randomLevel();
+
+            if(newLevel > level){
+                for(int i=level+1; i<=newLevel;i++)
+                    update[i] = header;
+                level = newLevel;
+            }
+
+            SkipNode *newNode = new SkipNode(data, newLevel);
+
+            for(int i=0;i<=newLevel;i++){
+                newNode->forward[i] = update[i]->forward[i];
+                update[i]->forward[i] = newNode;
+            }
+        }
+    }
+};
