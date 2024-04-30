@@ -92,4 +92,33 @@ bool searchElement(int data) {
     }
     current = current->forward[0];
     return current != nullptr && current->data == data;
+    
 }
+void deleteElement(int data) {
+        SkipNode *current = header;
+        SkipNode *update[MAX_LEVEL +1];
+        for (int i = 0; i <= MAX_LEVEL; i++) {
+            update[i] = nullptr;
+        }
+
+        for (int i = level; i >=0; i--) {
+            while (current->forward[i] != nullptr && current ->forward[i]->data < data)
+                current = current->forward[i];
+            update[i] = current;
+        }
+
+        current = current->forward[0];
+
+        if (current != nullptr && current->data == data) {
+            for (int i = 0; i <=level; i++) {
+                if (update[i]->forward[i] != current)
+                    break;
+                update[i]->forward[i] = current->forward[i];
+            }
+
+            delete current;
+
+            while (level > 0 && header->forward[level] == nullptr)
+                level--;
+        }
+    }
