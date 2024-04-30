@@ -96,6 +96,22 @@ else {
     cout << "Element " << key << " already exists in the list." << end1;
 }
 }
+
+bool SkpList::searchElement(int key)
+{
+    SkipNode* current = header;
+    for (int i = level; i >= 0; i--)
+{
+    while (current->forward[i] != nullptr && current->forward[i]->key < key)
+        current = current->forward[i];
+}
+    current = current->forward[0];
+
+    if (current != nullptr && current->key == key)
+        return true;
+    return false;
+}
+
                       
     
 
