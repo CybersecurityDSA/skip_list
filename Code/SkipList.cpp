@@ -2,15 +2,16 @@
 #include <cstdlib>
 #include <ctime>
 #include <climits>
+#include <string>
 
 using namespace std;
 
 class SkipNode{
     public:
-        int data;
+        string data;
         SkipNode **forward;
 
-        SkipNode(int data, int level){
+        SkipNode(string data, int level){
             this->data = data;
             forward = new SkipNode *[level + 1];
             for(int i =0;i<=level;i++){
@@ -35,7 +36,7 @@ public:
         MAX_LEVEL = max_lvl;
         P = prob;
         level = 0;
-        header = new SkipNode(INT_MIN,MAX_LEVEL);
+        header = new SkipNode("INT_MIN",MAX_LEVEL);
     }
 
     ~SkipList(){
@@ -52,7 +53,7 @@ public:
         return level;
     }
 
-    void insertElement(int data) {
+    void insertElement(string data) {
         SkipNode *current = header;
         SkipNode *update[MAX_LEVEL+1];
         for (int i=0;i<=MAX_LEVEL;i++){
@@ -83,8 +84,8 @@ public:
             }
         }
     }
-};
-bool searchElement(int data) {
+}
+bool searchElement(string data) {
     SkipNode *current = header;
     for (int i = level; i >=0; i--) {
         while (current->forward[i] && current->forward[i]->data < data)
@@ -94,7 +95,7 @@ bool searchElement(int data) {
     return current != nullptr && current->data == data;
     
 }
-void deleteElement(int data) {
+void deleteElement(string data) {
         SkipNode *current = header;
         SkipNode *update[MAX_LEVEL +1];
         for (int i = 0; i <= MAX_LEVEL; i++) {
@@ -117,6 +118,7 @@ void deleteElement(int data) {
             }
 
             delete current;
+            cout<<"Element "<<data<<" is deleted"<<endl;
 
             while (level > 0 && header->forward[level] == nullptr)
                 level--;
@@ -141,9 +143,10 @@ int main() {
     srand((unsigned)time(0));
     SkipList skipList(3, 0.5);
 
-    int choice, element;
+    int choice;
+    string element;
     do {
-        cout << "\n\n1. Insert Element";
+        cout << "\n1. Insert Element";
         cout << "\n2. Delete Element";
         cout << "\n3. Search Element";
         cout << "\n4. Display Skip List";
