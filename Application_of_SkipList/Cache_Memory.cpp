@@ -120,4 +120,27 @@ public:
     size--;
   }
 
+  void movetofront(skipnode* node){
+    if(node == nullptr || node == header->prev) return;
+
+    skipnode* prevnode = node->prev;
+    skipnode* nextnode = node->forward[0];
+
+    if(prevnode != nullptr){
+      prevnode->forward[0] = nextnode;
+    }
+    if(nextnode != nullptr){
+      nextnode->prev = prevnode;
+    }
+
+    node->prev = header;
+    node->forward[0] = header->forward[0];
+
+    if(header->forward[0] != nullptr){
+      header->forward[0]->prev = node;
+    }
+
+    header->forward[0] = node;
+  }
+
 }
