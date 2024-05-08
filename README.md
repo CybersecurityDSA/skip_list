@@ -22,8 +22,10 @@ It combines the advantages of Arrays and linked lists.</p>
 <br>
 ==>Concurrent Operations
 
-<p><br>Skip Lists have some important applications in various areas, such as distributed systems, databases, sorting algorithms
+<h2>Applications On Skip List: </h2>
+<p>~~>Skip Lists have some important applications in various areas, such as distributed systems, databases, sorting algorithms
   and data compression algorithms.</p>
+<p>~~>In this project we are going to do an application on Cache Memory Implementation using Skip List Data Structure.</p>
 
   <h2>Time complexity analysis of Skip List: </h2>
 <h3>Insertion Analysis -</h3>
