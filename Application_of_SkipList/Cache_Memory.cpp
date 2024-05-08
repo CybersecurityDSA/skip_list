@@ -163,5 +163,14 @@ void clear() {
             removeLRU();
   }
 }
-
+void display() {
+  std::cout << "Cache Contents: " << std::endl;
+  SkipNode* node = header-> forward[0];
+  while (node != nullptr) {
+        std::cout << "Key: " <<node->key << ", Value: " <<node->value <<std::endl;
+        node = node -> forward[0];
+  }
+std::cout << std::endl;
+}
+};
 
