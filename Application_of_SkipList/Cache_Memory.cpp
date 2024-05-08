@@ -174,3 +174,56 @@ std::cout << std::endl;
 }
 };
 
+int main(){
+    srand((unsigned)time(0));
+
+    std::cout << "Enter the  capacity of cache: ";
+    int capacity;
+    std::cin >> capacity;
+
+    SkipListCache cache(capacity);
+
+    std::string choice;
+    do {
+      std::cout << "\nMenu: \n1. Insert\n2. Get\n3. Check if Key Exists\n4. Cache Size\n5. Clear Cache\n6. Display\n7. Exit\nEnter Your Choice: ";
+      std::cin >> choice;
+
+      if (choice == "1") {
+          int key, value;
+          std::cout  << "Enter key and value to insert: ";
+          std::cin >> key >> value;
+          cache.insert(key, value);
+      } else if (choice == "2") {
+            int key;
+            std::cout << "Enter key to get value: ";
+            std::cin >> key;
+            int value = cache.get(key);
+            if (value != -1) {
+                std::cout << "Value for key " << key << ": "<<value <<std::endl;
+            } else {
+                std::cout << "Key not found in cache." << std::endl;
+            }
+      } else if (choice == "3") {
+            int key;
+            std::cout << "Enter key to check if it exists: ";
+            std::cin >> key;
+            if (cache.contains(key)){
+                std::cout << "Key "<< key << " exists in cache. " << std::endl;
+            } else{
+                std::cout << "Key "<< key << " does not exists in cache. " << std::endl;
+            }
+      } else if (choice == "4") {
+            std::cout << "Cache Size: " << cache.getSize() << std::endl;
+        } else if (choice == "5") {
+            cache.clear();
+            std::cout << "Cache cleared." << std::endl;
+        } else if (choice == "6") {
+            cache.display();
+        } else if (choice != "7") {
+            std::cout << "Invalid choice. Please try again." << std::endl;
+        }
+    } while (choice != "7");
+
+    return 0;
+}
+
