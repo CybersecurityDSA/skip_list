@@ -97,4 +97,27 @@ public:
       }
     }
   }
+
+  void removeLRU(){
+    if(size <= 0) return;
+
+    skipnode* current = header->prev;
+    if (current == nullptr) return;
+
+    keymap.erase(current->key);
+
+    for (int i=0;i<=level; i++){
+      if(header->forward[i] == current){
+        header->forward[i] = current->forward[i];
+      }
+    }
+
+    if(current->forward[0] != nullptr){
+      current->forward[0]->prev = current->prev;
+    }
+
+    delete current;
+    size--;
+  }
+
 }
