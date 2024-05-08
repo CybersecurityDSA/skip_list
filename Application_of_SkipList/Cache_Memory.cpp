@@ -142,5 +142,26 @@ public:
 
     header->forward[0] = node;
   }
-
+int get (int key) {
+  if (keyMap.find(key) != keymap.end()) {
+          SkipNode* node = keyMap[key];
+          moveToFront(node);
+          return node -> value;
+  }
+return -1;
 }
+
+bool contains(int key) { 
+      return keyMap.find(key) != keyMap.end();
+}
+int getSize() const {
+    return size;
+}
+
+void clear() {
+  while (header -> forward[0] != nullptr) {
+            removeLRU();
+  }
+}
+
+
