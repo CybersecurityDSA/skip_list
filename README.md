@@ -2,11 +2,12 @@
 <P>In this project we are going to implement Skip List Data Structure</P>
 
 <h2>TABLE OF CONTENTS:</h2>
-  -->Insert Operation
-<br>
-  -->Search Operation
-<br>
-  -->Delete Operation
+<ul>
+  <li>Insert Operation</li>
+  <li>Search Operation</li>
+  <li>Delete Operation</li>
+</ul>
+
 
 
 <h2>INTRODUCTION TO SKIP LIST</h2>
@@ -16,11 +17,14 @@ It combines the advantages of Arrays and linked lists.</p>
 ![OIP](https://github.com/CybersecurityDSA/skip_list/assets/167642797/1abf7b55-0966-4d74-aab8-dfedc2556d17)
 
 <h2>Key Features of skip list are as follows:</h2>
-==>Simple implementation
-<br>
-==>Efficient Search
-<br>
-==>Concurrent Operations
+
+
+<ul>
+  <li>Simple Implementation</li>
+  <li>Efficient Search</li>
+  <li>Concurrent Operations</li>
+</ul>
+
 
 <h2>Applications On Skip List: </h2>
 <p>~~>Skip Lists have some important applications in various areas, such as distributed systems, databases, sorting algorithms
