@@ -190,8 +190,9 @@ int main(){
 
       if (choice == "1") {
           int key, value;
-          std::cout  << "Enter key and value to insert: ";
-          std::cin >> key >> value;
+          std::cout  << "Enter key to insert: ";
+          std::cin >> key;
+          std::cout  << "Enter Value for key" << key << "to insert ";
           cache.insert(key, value);
       } else if (choice == "2") {
             int key;
