@@ -14,7 +14,7 @@ struct skipnode {
   skipnode* prev;
 
   skipnode(int level,int key,int value) : key(key),value(value), prev(nullptr) {
-      forward = new skipnode*[leval+1];
+      forward = new skipnode*[level+1];
       memset(forward,0,sizeof(skipnode*) * (level + 1));
   }
 
@@ -26,11 +26,11 @@ struct skipnode {
 class skiplistcache {
   int level;
   int capacity;
-  int ize;
+  int size;
   skipnode* header;
-  std::unordered_map<int, skipnode*> keymap;
+  std::unordered_map<int, skipnode*> keyMap;
 public:
-  skiplistcache(int capacity) : capacity(capacity), size(0){
+  skiplistcache(int capacity) : capacity(capacity), size (0){
     level = 0;
     header = new skipnode(MAX_LEVEL, -1, -1);
   }
@@ -48,8 +48,8 @@ public:
   }
 
   void insert(int key, int value){
-    if(keymap.find(key) != keymap.end()){
-      skipnode* node = keymap[key];
+    if(keyMap.find(key) != keyMap.end()){
+      skipnode* node = keyMap[key];
       node->value = value;
       movetofront(node);
       return;
@@ -89,7 +89,7 @@ public:
         newnode->forward[0]->prev = newnode;
       }
 
-      keymap[key] = newnode;
+      keyMap[key] = newnode;
       size++;
 
       if(size>capacity){
@@ -104,7 +104,7 @@ public:
     skipnode* current = header->prev;
     if (current == nullptr) return;
 
-    keymap.erase(current->key);
+    keyMap.erase(current->key);
 
     for (int i=0;i<=level; i++){
       if(header->forward[i] == current){
@@ -143,9 +143,9 @@ public:
     header->forward[0] = node;
   }
 int get (int key) {
-  if (keyMap.find(key) != keymap.end()) {
-          SkipNode* node = keyMap[key];
-          moveToFront(node);
+  if (keyMap.find(key) != keyMap.end()) {
+          skipnode* node = keyMap[key];
+          movetofront(node);
           return node -> value;
   }
 return -1;
@@ -165,7 +165,7 @@ void clear() {
 }
 void display() {
   std::cout << "Cache Contents: " << std::endl;
-  SkipNode* node = header-> forward[0];
+  skipnode* node = header-> forward[0];
   while (node != nullptr) {
         std::cout << "Key: " <<node->key << ", Value: " <<node->value <<std::endl;
         node = node -> forward[0];
@@ -181,7 +181,7 @@ int main(){
     int capacity;
     std::cin >> capacity;
 
-    SkipListCache cache(capacity);
+    skiplistcache cache(capacity);
 
     std::string choice;
     do {
