@@ -66,5 +66,35 @@ int main() {
     assert(skipList.searchElement("HeLLo") == true);
     assert(skipList.searchElement("WORLD") == true);
 
+    // Test empty SkipList
+    SkipList emptySkipList(3, 0.5);
+    assert(emptySkipList.searchElement("EMPTY") == false);
+
+    // Test insertion and deletion of one element
+    SkipList oneElementSkipList(3, 0.5);
+    oneElementSkipList.insertElement("ONE");
+    assert(oneElementSkipList.searchElement("ONE") == true);
+    assert(oneElementSkipList.deleteElement("ONE") == true);
+    assert(oneElementSkipList.searchElement("ONE") == false);
+
+    // Test insertion and deletion of multiple elements
+    SkipList multipleElementSkipList(3, 0.5);
+    multipleElementSkipList.insertElement("1");
+    multipleElementSkipList.insertElement("2");
+    multipleElementSkipList.insertElement("3");
+    multipleElementSkipList.insertElement("4");
+    multipleElementSkipList.insertElement("5");
+    assert(multipleElementSkipList.searchElement("1") == true);
+    assert(multipleElementSkipList.searchElement("2") == true);
+    assert(multipleElementSkipList.searchElement("3") == true);
+    assert(multipleElementSkipList.searchElement("4") == true);
+    assert(multipleElementSkipList.searchElement("5") == true);
+    assert(multipleElementSkipList.deleteElement("1") == true);
+    assert(multipleElementSkipList.deleteElement("3") == true);
+    assert(multipleElementSkipList.searchElement("1") == false);
+    assert(multipleElementSkipList.searchElement("3") == false);
+    assert(multipleElementSkipList.searchElement("5") == true);
+
+
     return 0;
 }
