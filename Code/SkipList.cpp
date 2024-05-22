@@ -6,104 +6,98 @@
 
 using namespace std;
 
-class SkipNode{
-    public:
-        string data;
-        SkipNode **forward;
+class SkipNode {
+public:
+    string data;
+    SkipNode **forward;
 
-        SkipNode(string data, int level){
-            this->data = data;
-            forward = new SkipNode *[level + 1];
-            for(int i =0;i<=level;i++){
-                forward[i] = nullptr;
-            }
+    SkipNode(string data, int level) {
+        this->data = data;
+        forward = new SkipNode *[level + 1]();
+    }
 
-        }
-
-        ~SkipNode(){
-            delete[] forward;
-        }
-
+    ~SkipNode() {
+        delete[] forward;
+    }
 };
 
-class SkipList{
+class SkipList {
     int MAX_LEVEL;
     float P;
     int level;
     SkipNode *header;
+
 public:
-    SkipList(int max_lvl,float prob){
-        MAX_LEVEL = max_lvl;
-        P = prob;
-        level = 0;
-        header = new SkipNode("INT_MIN",MAX_LEVEL);
+    SkipList(int max_lvl, float prob) : MAX_LEVEL(max_lvl), P(prob), level(0) {
+        header = new SkipNode("INT_MIN", MAX_LEVEL);
     }
 
-    ~SkipList(){
+    ~SkipList() {
+        SkipNode *current = header->forward[0];
+        while (current != nullptr) {
+            SkipNode *next = current->forward[0];
+            delete current;
+            current = next;
+        }
         delete header;
     }
 
-    int randomLevel(){
-        float r = (float)rand() / RAND_MAX;
+    int randomLevel() {
+        float r = static_cast<float>(rand()) / RAND_MAX;
         int lvl = 0;
-        while(r<P && level < MAX_LEVEL){
+        while (r < P && lvl < MAX_LEVEL) {
             lvl++;
-            r = (float)rand() / RAND_MAX;
+            r = static_cast<float>(rand()) / RAND_MAX;
         }
-        return level;
+        return lvl;
     }
 
     void insertElement(string data) {
         SkipNode *current = header;
-        SkipNode *update[MAX_LEVEL+1];
-        for (int i=0;i<=MAX_LEVEL;i++){
-            update[i] = nullptr;
-        }
+        SkipNode *update[MAX_LEVEL + 1] = {};
 
-        for(int i=level;i>=0;i--){
-            while(current->forward[i] != nullptr && current->forward[i]->data < data)
+        for (int i = level; i >= 0; i--) {
+            while (current->forward[i] != nullptr && current->forward[i]->data < data)
                 current = current->forward[i];
             update[i] = current;
+        }
 
         current = current->forward[0];
 
-        if(current == nullptr || current->data != data) {
+        if (current == nullptr || current->data != data) {
             int newLevel = randomLevel();
 
-            if(newLevel > level){
-                for(int i=level+1; i<=newLevel;i++)
+            if (newLevel > level) {
+                for (int i = level + 1; i <= newLevel; i++)
                     update[i] = header;
                 level = newLevel;
             }
 
             SkipNode *newNode = new SkipNode(data, newLevel);
 
-            for(int i=0;i<=newLevel;i++){
+            for (int i = 0; i <= newLevel; i++) {
                 newNode->forward[i] = update[i]->forward[i];
                 update[i]->forward[i] = newNode;
             }
         }
     }
-}
-bool searchElement(string data) {
-    SkipNode *current = header;
-    for (int i = level; i >=0; i--) {
-        while (current->forward[i] && current->forward[i]->data < data)
-            current = current->forward[i];
-    }
-    current = current->forward[0];
-    return current != nullptr && current->data == data;
-    
-}
-void deleteElement(string data) {
-        SkipNode *current = header;
-        SkipNode *update[MAX_LEVEL +1];
-        for (int i = 0; i <= MAX_LEVEL; i++) {
-            update[i] = nullptr;
-        }
 
-        for (int i = level; i >=0; i--) {
-            while (current->forward[i] != nullptr && current ->forward[i]->data < data)
+    bool searchElement(string data) {
+        SkipNode *current = header;
+        for (int i = level; i >= 0; i--) {
+            while (current->forward[i] && current->forward[i]->data < data)
+                current = current->forward[i];
+        }
+        current = current->forward[0];
+        return current != nullptr && current->data == data;
+    }
+
+    void deleteElement(string data) {
+        SkipNode *current = header;
+        SkipNode *update[MAX_LEVEL + 1] = {};
+
+        for (int i = level; i >= 0; i--) {
+            while (current->forward[i] != nullptr && current->forward[i]->data < data)
                 current = current->forward[i];
             update[i] = current;
         }
@@ -111,14 +105,14 @@ void deleteElement(string data) {
         current = current->forward[0];
 
         if (current != nullptr && current->data == data) {
-            for (int i = 0; i <=level; i++) {
+            for (int i = 0; i <= level; i++) {
                 if (update[i]->forward[i] != current)
                     break;
                 update[i]->forward[i] = current->forward[i];
             }
 
             delete current;
-            cout<<"Element "<<data<<" is deleted"<<endl;
+            cout << "Element " << data << " is deleted" << endl;
 
             while (level > 0 && header->forward[level] == nullptr)
                 level--;
@@ -127,7 +121,7 @@ void deleteElement(string data) {
 
     void displayList() {
         cout << "Skip List: " << endl;
-        for (int i = 0; i <= level; i++) {
+        for (int i = level; i >= 0; i--) {
             SkipNode *node = header->forward[i];
             cout << "Level " << i << ": ";
             while (node != nullptr) {
@@ -140,7 +134,7 @@ void deleteElement(string data) {
 };
 
 int main() {
-    srand((unsigned)time(0));
+    srand(static_cast<unsigned>(time(0)));
     SkipList skipList(3, 0.5);
 
     int choice;
@@ -154,8 +148,6 @@ int main() {
         cout << "\nEnter your choice: ";
         cin >> choice;
 
-         
-        
         switch (choice) {
             case 1:
                 cout << "Enter the element to be inserted: ";
@@ -172,21 +164,19 @@ int main() {
                 cin >> element;
                 if (skipList.searchElement(element))
                     cout << "Element found." << endl;
-                else 
+                else
                     cout << "Element not found." << endl;
                 break;
             case 4 :
                 skipList.displayList();
                 break;
             case 5 :
-                cout << "Exiting....";
+                cout << "Exiting....\n";
                 break;
             default:
                 cout << "Invalid choice!";
         }
-    } while (choice !=5);
+    } while (choice != 5);
 
     return 0;
 }
-
-
